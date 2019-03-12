@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper    
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace:命名空间,对statement的信息进行分类管理 -->
+<!-- 注意：在mapper代理时，它具有特殊及重要的作用,需要和mapper接口的全限命名一致 -->
+<mapper namespace="com.mywork.project.dao.ApplyDao">
+	
+	<select id="listApply" resultType="java.util.Map">
+		SELECT apply.*, user.* FROM apply, user
+		WHERE apply.item_user = user.real_name
+		<if test="apply != null">
+			<if test="apply.apply_year != null and apply.apply_year != ''">
+				AND apply.apply_year = #{apply.apply_year}
+			</if>
+			<if test="apply.item_type != null and apply.item_type != ''">
+				AND apply.item_type = #{apply.item_type}
+			</if>
+			<if test="apply.item_user != null and apply.item_user != ''">
+				AND apply.item_user = #{apply.item_user}
+			</if>
+			<if test="apply.item_submit != null and apply.item_submit != ''">
+				AND apply.item_submit = #{apply.item_submit}
+			</if>
+			<if test="apply.item_status != null and apply.item_status != ''">
+				AND apply.item_status = #{apply.item_status}
+			</if>
+			<if test="apply.history_flag != null and apply.history_flag != ''">
+				AND apply.history_flag = #{apply.history_flag}
+			</if>
+		</if>
+		<if test="str != null and str != ''">
+			<!-- AND (apply.item_name LIKE '%${str}%' OR apply.item_user LIKE '%${str}%') -->
+			AND (apply.item_name LIKE CONCAT('%', #{str}, '%') OR apply.item_user LIKE CONCAT('%', #{str}, '%'))
+		</if>
+		LIMIT #{start},#{pageSize}
+	</select>
+	
+	<select id="count" resultType="java.lang.Long">
+		SELECT count(DISTINCT item_id) FROM apply, user
+		WHERE apply.item_user = user.real_name
+		<if test="apply != null">
+			<if test="apply.apply_year != null and apply.apply_year != ''">
+				AND apply.apply_year = #{apply.apply_year}
+			</if>
+			<if test="apply.item_type != null and apply.item_type != ''">
+				AND apply.item_type = #{apply.item_type}
+			</if>
+			<if test="apply.item_user != null and apply.item_user != ''">
+				AND apply.item_user = #{apply.item_user}
+			</if>
+			<if test="apply.item_submit != null and apply.item_submit != ''">
+				AND apply.item_submit = #{apply.item_submit}
+			</if>
+			<if test="apply.item_status != null and apply.item_status != ''">
+				AND apply.item_status = #{apply.item_status}
+			</if>
+			<if test="apply.history_flag != null and apply.history_flag != ''">
+				AND apply.history_flag = #{apply.history_flag}
+			</if>
+		</if>
+		<if test="str != null and str != ''">
+			<!-- AND (apply.item_name LIKE '%${str}%' OR apply.item_user LIKE '%${str}%') -->
+			AND (apply.item_name LIKE CONCAT('%', #{str}, '%') OR apply.item_user LIKE CONCAT('%', #{str}, '%'))
+		</if>
+	</select>
+	
+	<update id="updateApply" parameterType="com.mywork.project.domain.Apply">
+		UPDATE apply
+		SET item_name = #{item_name},
+			item_type = #{item_type},
+			apply_year = YEAR(NOW()),
+			item_starttime = #{item_starttime},
+			item_deadline = #{item_deadline},
+			item_description = #{item_description}
+		WHERE item_id = #{item_id}
+	</update>
+	
+	<insert id="addApply" parameterType="com.mywork.project.domain.Apply"
+			useGeneratedKeys="true" keyProperty="item_id">
+		INSERT INTO
+		apply(item_name,
+			item_type,
+			item_user,
+			user_department,
+			apply_year,
+			item_starttime,
+			item_deadline,
+			item_submit,
+			apply_time,
+			item_description,
+			history_flag,
+			path)
+		VALUES(#{item_name},
+			#{item_type},
+			#{item_user},
+			#{user_department},
+			YEAR(NOW()),
+			#{item_starttime},
+			#{item_deadline},
+			#{item_submit},
+			#{apply_time},
+			#{item_description},
+			#{history_flag},
+			#{path})
+	</insert>
+	
+	<delete id="deleteApplyById" parameterType="int">
+		DELETE FROM apply
+		WHERE item_id = #{item_id}
+	</delete>
+	
+	<delete id="deleteApplyBatchs">
+		DELETE FROM apply
+		WHERE item_id IN
+		<foreach collection="array" item="item_id" open="(" close=")" separator=",">
+			#{item_id}
+		</foreach>
+	</delete>
+	
+	<update id="submitApply">
+		UPDATE apply
+		SET item_submit = #{item_submit},
+			apply_time = NOW()
+		WHERE item_id = #{item_id}
+	</update>
+	
+	<update id="submitApplyBatchs">
+		UPDATE apply
+		SET item_submit = #{item_submit},
+			apply_time = NOW()
+		WHERE item_id IN
+		<foreach collection="array" item="item_id" open="(" close=")" separator=",">
+			#{item_id}
+		</foreach>
+	</update>
+	
+	<update id="changeStatus">
+		UPDATE apply
+		SET item_status = #{item_status}
+		WHERE item_id = #{item_id}
+	</update>
+	
+	<update id="setHistory">
+		UPDATE apply
+		SET history_flag = '2'
+		WHERE item_submit = '2'
+		AND item_status IN ('5', '6')
+	</update>
+	
+	<update id="reUploadPath">
+		UPDATE apply
+		SET path = #{path}
+		WHERE item_id = #{item_id}
+	</update>
+	
+</mapper>

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper    
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace:命名空间,对statement的信息进行分类管理 -->
+<!-- 注意：在mapper代理时，它具有特殊及重要的作用,需要和mapper接口的全限命名一致 -->
+<mapper namespace="com.mywork.project.dao.UserDao">
+
+	<select id="listExpert" resultType="com.mywork.project.domain.User">
+		SELECT * FROM user
+		WHERE user_type = '4'
+		AND signln_valid = '2'
+	</select>
+
+	<select id="findUserByType" parameterType="java.lang.String" resultType="com.mywork.project.domain.User">
+		SELECT * FROM user
+		<where>
+			<if test="str != null and str != ''">
+				<!-- AND (user_name LIKE '%${str}%' OR real_name LIKE '%${str}%') -->
+				AND (user_name LIKE CONCAT('%', #{str}, '%') OR real_name LIKE CONCAT('%', #{str}, '%'))
+			</if>
+			<if test="user != null">
+				<if test="user.user_type != null and user.user_type != ''">
+					AND user_type = #{user.user_type}
+				</if> 
+				<if test="user.user_department != null and user.user_department != ''">
+					AND user_department = #{user.user_department}
+				</if> 
+				<if test="user.user_title != null and user.user_title != ''">
+					AND user_title = #{user.user_title}
+				</if> 
+				<if test="user.signln_valid != null and user.signln_valid != ''">
+					AND signln_valid = #{user.signln_valid}
+				</if> 
+			</if>
+		</where>
+		LIMIT #{start},#{pageSize}
+	</select>
+	
+	<select id="count" resultType="java.lang.Long">
+		SELECT COUNT(*) FROM user
+		<where>
+			<if test="str != null and str != ''">
+				<!-- AND (user_name LIKE '%${str}%' OR real_name LIKE '%${str}%') -->
+				AND (user_name LIKE CONCAT('%', #{str}, '%') OR real_name LIKE CONCAT('%', #{str}, '%'))
+			</if>
+			<if test="user != null">
+				<if test="user.user_type != null and user.user_type != ''">
+					AND user_type = #{user.user_type}
+				</if> 
+				<if test="user.user_department != null and user.user_department != ''">
+					AND user_department = #{user.user_department}
+				</if> 
+				<if test="user.user_title != null and user.user_title != ''">
+					AND user_title = #{user.user_title}
+				</if> 
+				<if test="user.signln_valid != null and user.signln_valid != ''">
+					AND signln_valid = #{user.signln_valid}
+				</if> 
+			</if>
+		</where>
+	</select>
+	
+	<update id="updateUserById" parameterType="com.mywork.project.domain.User">
+		UPDATE user
+		SET user_name = #{user_name},
+			user_pass = #{user_pass},
+			real_name = #{real_name},
+			user_sex = #{user_sex},
+			user_department = #{user_department},
+			user_title = #{user_title},
+			user_mailbox = #{user_mailbox},
+			user_telphone = #{user_telphone},
+			reg_date = #{reg_date},
+			user_type = #{user_type},
+			signln_valid = #{signln_valid},
+			user_remark = #{user_remark}
+		WHERE user_id = #{user_id}
+	</update>
+	
+	<update id="modifyPassword">
+		UPDATE user
+		SET user_pass = #{user_pass}
+		WHERE user_name = #{user_name}
+	</update>
+	
+	<update id="updateSignln" parameterType="com.mywork.project.domain.User">
+		UPDATE signln
+		SET user_pass = #{user_pass},
+			user_type = #{user_type},
+			signln_valid = #{signln_valid}
+		WHERE user_name = #{user_name}
+	</update>
+	
+	<update id="modifySignlnPassword">
+		UPDATE signln
+		SET user_pass = #{user_pass}
+		WHERE user_name = #{user_name}
+	</update>
+	
+	<insert id="addUser" parameterType="com.mywork.project.domain.User">
+		INSERT INTO 
+		user(user_name,
+			user_pass,
+			real_name,
+			user_sex,
+			user_department,
+			user_title,
+			user_mailbox,
+			user_telphone,
+			reg_date,
+			user_type,
+			signln_valid,
+			user_remark)
+		VALUES(#{user_name},
+			#{user_pass},
+			#{real_name},
+			#{user_sex},
+			#{user_department},
+			#{user_title},
+			#{user_mailbox},
+			#{user_telphone},
+			#{reg_date},
+			#{user_type},
+			#{signln_valid},
+			#{user_remark})
+	</insert>
+	
+	<insert id="addSignln" parameterType="com.mywork.project.domain.User">
+		INSERT INTO 
+		signln(user_name,
+			user_pass,
+			user_type,
+			signln_valid)
+		VALUES(#{user_name},
+			#{user_pass},
+			#{user_type},
+			#{signln_valid})
+	</insert>
+	
+	<delete id="deleteUserById" parameterType="int">
+		DELETE FROM user
+		WHERE user_id = #{user_id}
+	</delete>
+	
+	<select id="findNameById" parameterType="int" resultType="java.lang.String">
+		SELECT user_name FROM user
+		WHERE user_id = #{user_id}
+	</select>
+	
+	<delete id="deleteSignlnByName" parameterType="java.lang.String">
+		DELETE FROM signln
+		WHERE user_name = #{user_name}
+	</delete>
+	
+	<delete id="deleteUserBatchs">
+		DELETE FROM user
+		WHERE user_id IN 
+		<foreach collection="array" item="user_id" open="(" close=")" separator=",">
+			#{user_id}
+		</foreach>
+	</delete>
+	
+	<delete id="deleteSignlnBatchs">
+		DELETE FROM signln
+		WHERE user_name IN 
+		<foreach collection="list" item="user_name" open="(" close=")" separator=",">
+			#{user_name}
+		</foreach>
+	</delete>
+	
+	<update id="changeUserStatus">
+		UPDATE user
+		SET signln_valid = #{signln_valid}
+		WHERE user_id = #{user_id}
+	</update>
+	
+	<update id="changeSignlnStatus">
+		UPDATE signln
+		SET signln_valid = #{signln_valid}
+		WHERE user_name = #{user_name}
+	</update>
+	
+	<update id="changeUserStatusBatchs">
+		UPDATE user
+		SET signln_valid = #{signln_valid}
+		WHERE user_id IN 
+		<foreach collection="array" item="user_id" open="(" close=")" separator=",">
+			#{user_id}
+		</foreach>
+	</update>
+	
+	<update id="changeSignlnStatusBatchs">
+		UPDATE signln
+		SET signln_valid = #{signln_valid}
+		WHERE user_name IN 
+		<foreach collection="list" item="user_name" open="(" close=")" separator=",">
+			#{user_name}
+		</foreach>
+	</update>
+	
+</mapper>

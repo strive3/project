@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper    
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace:命名空间,对statement的信息进行分类管理 -->
+<!-- 注意：在mapper代理时，它具有特殊及重要的作用,需要和mapper接口的全限命名一致 -->
+<mapper namespace="com.mywork.project.dao.PublicityDao">
+	
+	<select id="listPublicity" resultType="java.util.Map">
+		SELECT apply.*, publicity.*, user.*
+		FROM apply, publicity, user
+		WHERE apply.item_id = publicity.item_id
+		AND user.real_name = publicity.item_user
+		<if test="status != null">
+			AND publicity.publicity_status IN 
+			<foreach collection="status" item="publicity_status" open="(" close=")" separator=",">
+				#{publicity_status}
+			</foreach>
+		</if>
+		<if test="apply != null">
+			<if test="apply.item_type != null and apply.item_type != ''">
+				AND apply.item_type = #{apply.item_type}
+			</if>
+			<if test="apply.apply_year != null and apply.apply_year != ''">
+				AND apply.apply_year = #{apply.apply_year}
+			</if>
+			<if test="apply.history_flag != null and apply.history_flag != ''">
+				AND history_flag = #{apply.history_flag}
+			</if>
+		</if>
+		<if test="user != null">
+			<if test="user.user_department != null and user.user_department != ''">
+				AND user.user_department = #{user.user_department}
+			</if>
+			<if test="user.user_title != null and user.user_title != ''">
+				AND user.user_title = #{user.user_title}
+			</if>
+		</if>
+		<if test="str != null and str != ''">
+			<!-- AND (apply.item_name LIKE '%${str}%' OR apply.item_user LIKE '%${str}%') -->
+			AND (apply.item_name LIKE CONCAT('%', #{str}, '%') OR apply.item_user LIKE CONCAT('%', #{str}, '%'))
+		</if>
+		LIMIT #{start},#{pageSize}
+	</select>
+	
+	<select id="count" resultType="java.lang.Long">
+		SELECT COUNT(*)
+		FROM apply, publicity, user
+		WHERE apply.item_id = publicity.item_id
+		AND user.real_name = publicity.item_user
+		<if test="apply != null">
+			<if test="apply.item_type != null and apply.item_type != ''">
+				AND apply.item_type = #{apply.item_type}
+			</if>
+			<if test="apply.apply_year != null and apply.apply_year != ''">
+				AND apply.apply_year = #{apply.apply_year}
+			</if>
+			<if test="apply.history_flag != null and apply.history_flag != ''">
+				AND history_flag = #{apply.history_flag}
+			</if>
+		</if>
+		<if test="user != null">
+			<if test="user.user_department != null and user.user_department != ''">
+				AND user.user_department = #{user.user_department}
+			</if>
+			<if test="user.user_title != null and user.user_title != ''">
+				AND user.user_title = #{user.user_title}
+			</if>
+		</if>
+		<if test="str != null and str != ''">
+			<!-- AND (apply.item_name LIKE '%${str}%' OR apply.item_user LIKE '%${str}%') -->
+			AND (apply.item_name LIKE CONCAT('%', #{str}, '%') OR apply.item_user LIKE CONCAT('%', #{str}, '%'))
+		</if>
+	</select>
+	
+	<select id="getPublicity" resultType="com.mywork.project.domain.Publicity">
+		SELECT item_user, review1_user, review2_user, review2_score
+		FROM apply, review1, review2
+		WHERE apply.item_id = review1.item_id
+		AND apply.item_id = review2.item_id
+		AND apply.item_id = #{item_id}
+	</select>
+	
+	<insert id="addPublicity">
+		INSERT INTO
+		publicity(item_id,
+			item_user,
+			review1_user,
+			review2_user,
+			review2_score)
+		VALUES(#{item_id},
+			#{item_user},
+			#{review1_user},
+			#{review2_user},
+			#{review2_score})
+	</insert>
+	
+	<update id="updatePublicity" parameterType="com.mywork.project.domain.Publicity">
+		UPDATE publicity
+		SET publicity_status = #{publicity_status},
+			publicity_grade = #{publicity_grade},
+			publicity_time = NOW(),
+			publicity_remark = #{publicity_remark}
+		WHERE publicity_id = #{publicity_id}
+	</update>
+	
+</mapper>

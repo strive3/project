@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper    
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace:命名空间,对statement的信息进行分类管理 -->
+<!-- 注意：在mapper代理时，它具有特殊及重要的作用,需要和mapper接口的全限命名一致 -->
+<mapper namespace="com.mywork.project.dao.Review2Dao">
+
+	<select id="listReview2" resultType="java.util.Map">
+		SELECT apply.*, review1.*, review2.*, user.*
+		FROM review2, review1, apply, user
+		WHERE apply.item_id = review2.item_id
+		AND review1.item_id = review2.item_id
+		AND user.real_name = apply.item_user
+		<if test="review2 != null">
+			<if test="review2.review2_user != null and review2.review2_user != ''">
+				AND review2.review2_user = #{review2.review2_user}
+			</if>
+			<if test="review2.review2_status != null and review2.review2_status != ''">
+				AND review2.review2_status = #{review2.review2_status}
+			</if>
+		</if>
+		<if test="apply != null">
+			<if test="apply.apply_year != null and apply.apply_year != ''">
+				AND apply.apply_year = #{apply.apply_year}
+			</if>
+			<if test="apply.item_type != null and apply.item_type != ''">
+				AND apply.item_type = #{apply.item_type}
+			</if>
+			<if test="apply.history_flag != null and apply.history_flag != ''">
+				AND history_flag = #{apply.history_flag}
+			</if>
+		</if>
+		<if test="user != null">
+			<if test="user.user_department != null and user.user_department != ''">
+				AND user.user_department = #{user.user_department}
+			</if>
+			<if test="user.user_title != null and user.user_title != ''">
+				AND user.user_title = #{user.user_title}
+			</if>
+		</if>
+		<if test="str != null and str != ''">
+			<!-- AND (apply.item_name LIKE '%${str}%' OR apply.item_user LIKE '%${str}%') -->
+			AND (apply.item_name LIKE CONCAT('%', #{str}, '%') OR apply.item_user LIKE CONCAT('%', #{str}, '%'))
+		</if>
+		LIMIT #{start},#{pageSize}
+	</select>
+	
+	<select id="count" resultType="java.lang.Long">
+		SELECT COUNT(*)
+		FROM review2, review1, apply, user
+		WHERE apply.item_id = review2.item_id
+		AND review1.item_id = review2.item_id
+		AND user.real_name = apply.item_user
+		<if test="review2 != null">
+			<if test="review2.review2_user != null and review2.review2_user != ''">
+				AND review2.review2_user = #{review2.review2_user}
+			</if>
+			<if test="review2.review2_status != null and review2.review2_status != ''">
+				AND review2.review2_status = #{review2.review2_status}
+			</if>
+		</if>
+		<if test="apply != null">
+			<if test="apply.item_type != null and apply.item_type != ''">
+				AND apply.item_type = #{apply.item_type}
+			</if>
+			<if test="apply.history_flag != null and apply.history_flag != ''">
+				AND history_flag = #{apply.history_flag}
+			</if>
+		</if>
+		<if test="str != null and str != ''">
+			<!-- AND (apply.item_name LIKE '%${str}%' OR apply.item_user LIKE '%${str}%') -->
+			AND (apply.item_name LIKE CONCAT('%', #{str}, '%') OR apply.item_user LIKE CONCAT('%', #{str}, '%'))
+		</if>
+	</select>
+	
+	<insert id="addReview2">
+		INSERT INTO
+		review2(item_id, 
+			review2_user)
+		VALUES(#{item_id}, 
+			#{review2_user})
+	</insert>
+	
+	<update id="updateReview2" parameterType="com.mywork.project.domain.Review2">
+		UPDATE review2
+		SET review2_status = #{review2_status},
+			review2_time = NOW(),
+			review2_score = #{review2_score},
+			review2_opinion = #{review2_opinion},
+			review2_remark = #{review2_remark}
+		WHERE review2_id = #{review2_id}
+	</update>
+
+</mapper>

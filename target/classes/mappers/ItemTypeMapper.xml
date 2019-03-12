@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper    
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace:命名空间,对statement的信息进行分类管理 -->
+<!-- 注意：在mapper代理时，它具有特殊及重要的作用,需要和mapper接口的全限命名一致 -->
+<mapper namespace="com.mywork.project.dao.ItemTypeDao">
+	
+	<select id="list" resultType="com.mywork.project.domain.ItemType">
+		SELECT * FROM itemType
+	</select>
+	
+	<select id="listItemType" resultType="com.mywork.project.domain.ItemType">
+		SELECT * FROM itemType
+		<where>
+			<if test="itemType_name != null and itemType_name != ''">
+				<!-- AND itemType_name LIKE '%${itemType_name}%' -->
+				AND itemType_name LIKE CONCAT('%', #{itemType_name}, '%')
+			</if>
+		</where>
+		LIMIT #{start},#{pageSize}
+	</select>
+	
+	<select id="count" parameterType="java.lang.String" resultType="java.lang.Long">
+		SELECT count(*) FROM itemType
+		<where>
+			<if test="itemType_name != null and itemType_name != ''">
+				<!-- AND itemType_name LIKE '%${itemType_name}%' -->
+				AND itemType_name LIKE CONCAT('%', #{itemType_name}, '%')
+			</if>
+		</where>
+	</select>
+	
+	<update id="updateItemType" parameterType="com.mywork.project.domain.ItemType">
+		UPDATE itemType
+		SET itemType_name = #{itemType_name},
+			item_description = #{item_description}
+		WHERE itemType_id = #{itemType_id}
+	</update>
+	
+	<insert id="addItemType" parameterType="com.mywork.project.domain.ItemType">
+		INSERT INTO
+		itemType(itemType_name,
+			item_description)
+		VALUES(#{itemType_name},
+			#{item_description})
+	</insert>
+	
+	<delete id="deleteItemType" parameterType="int">
+		DELETE FROM itemType
+		WHERE itemType_id = #{itemType_id}
+	</delete>
+	
+	<delete id="deleteItemTypeBatchs">
+		DELETE FROM itemType
+		WHERE itemType_id IN
+		<foreach collection="ids" item="itemType_id" open="(" close=")" separator=",">
+			#{itemType_id}
+		</foreach>
+	</delete>
+	
+	<update id="addCount" parameterType="int">
+		UPDATE itemType
+		SET item_count = item_count + 1
+		WHERE itemType_name IN 
+		(SELECT item_type FROM apply
+			WHERE item_id = #{item_id})
+	</update>
+	
+	<update id="addCountBatchs">
+		UPDATE itemType
+		SET item_count = item_count + 1
+		WHERE itemType_name IN 
+		(
+			SELECT item_type FROM apply
+			WHERE item_id IN
+			<foreach collection="ids" item="item_id" open="(" close=")" separator=",">
+				#{item_id}
+			</foreach>
+		)
+	</update>
+	
+</mapper>
