@@ -86,7 +86,8 @@
 		            	var array1 = [];
 		            	var array2 = [];
 		            	for(var i = 0 ; i < data.rows.length; i++) {
-		            	//console.log(data.row[i].apply_time);
+		            	// console.log(data.row[i].apply_time);
+						//	apply_time  提交时间   history_flag  ：1：正在申报 	2：历史申报记录
 		            		if(data.rows[i].apply_time != null) {
 		            			//console.log(typeof data.rows[i].history_flag);
 		            			array1.push(data.rows[i].apply_time);
@@ -694,7 +695,7 @@
 						</td> -->
 						<td>
 							<!-- 加载编辑器的容器 -->
-                            <script id="editor" type="text/plain" style="width:700px; height:150px;" />
+							<script id="editor" type="text/plain" style="width:700px; height:150px;" />
 							<input type="hidden" id="item_description"  name="item_description"> <%-- UEditor不能作为表单的一部分提交，所以用这种隐藏域的方式 --%>
 						</td>
 					</tr>
