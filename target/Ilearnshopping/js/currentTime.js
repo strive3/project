@@ -1,4 +1,4 @@
-function calender() {
+﻿function calender() {
 	var time = new Date();
 	var year = time.getFullYear();
 	var month = toPair(time.getMonth() + 1);

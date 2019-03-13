@@ -1,5 +1,7 @@
 package com.mywork.project.domain;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -16,9 +18,12 @@ public class Apply implements Serializable {
 	private String item_user; // 项目申报人
 	private String user_department; // 所属系部
 	private String apply_year; // 申报年份
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date item_starttime; // 项目开始时间
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date item_deadline; // 项目截止时间
-	private String item_submit; // 提交状态
+	private String item_submit; // 提交状态	1：待提交	2：已提交
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date apply_time; // 提交时间
 	private String item_status; // 当前状态
 	private String item_description; // 项目描述

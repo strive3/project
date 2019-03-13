@@ -1,5 +1,7 @@
 package com.mywork.project.domain;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -18,7 +20,9 @@ public class ItemVO implements Serializable{
 	private String item_type; // 项目类别
 	private String item_user; // 项目申报人
 	private String apply_year; // 申报年份
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date item_starttime; // 项目开始时间
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date item_deadline; // 项目截止时间
 	// 系部审核信息
 	private String review1_user;// 审核(推荐)单位

@@ -98,92 +98,92 @@
 		 	    }, */
 				//上方工具条 添加 修改 删除 刷新按钮
 				toolbar : '#toolbar',
-				/* [
-				{
-					iconCls : 'icon-add', //图标
-					text : '添加', //名称
-					handler : function() { //回调函数
-						document.getElementById("user_name").disabled = false;
-						$("#fm").form("reset");
-						//打开对话框并且设置标题
-						$("#dlg").dialog("open").dialog("setTitle", "添加用户");
-						//将url设置为添加
-						url = "${pageContext.request.contextPath }/user/addUser.do";
-					}
-				},
-				'-',
-				{
-					iconCls : 'icon-edit',
-					text : '修改',
-					handler : function() {
-						//获取选中要修改的行
-						var selectedRows = $("#dg").datagrid("getSelections");
-						//console.log(selectedRows)
-						//确保被选中行只能为一行
-						if (selectedRows.length != 1) {
-							$.messager.alert("系统提示","请选择一个要修改的用户！","info");
-							return;
-						}
-						//获取选中行user_name
-						var row = selectedRows[0];
-						console.log(row);
-						//打开对话框并且设置标题
-						//$("input[type='text']:first").prop('disabled','disabled');
-						$("#dlg").dialog("open").dialog("setTitle", "修改用户信息");
-						//将数组回显对话框中
-						$("#fm").form("load", row);//会自动识别name属性，将row中对应的数据，填充到form表单对应的name属性中
-						document.getElementById("user_name").disabled = true;
-						url = "${pageContext.request.contextPath }/user/updateUser.do";
-					}
-				},
-				'-',
-				{
-					iconCls : 'icon-remove',
-					text : '删除',
-					handler : function() {
-						var selectedRows = $("#dg").datagrid("getSelections");
-						//console.log(selectedRows);
-						//判断是否有选择的行
-						if (selectedRows.length == 0) {
-							$.messager.alert("系统提示","请选择要删除的数据！","info");
-							return;
-						}
-						//定义选中 选中user_name数组
-						var ids = [];
-						//循环遍历将选中行的id push进入数组
-						for ( var i = 0; i < selectedRows.length; i++) {
-							ids.push(selectedRows[i].user_id);
-						}
-						//console.log(ids)
-						//提示是否确认删除
-						$.messager.confirm("系统提示","您确定要删除选中的<font color=red>" + selectedRows.length + "</font>条数据么？",
-						function(flag) {
-							if (flag) {
-								$.post("${pageContext.request.contextPath }/user/deleteUserBatchs.do",
-								{
-									idsStr : ids.join(","),
-								},
-								function(data) {
-									//console.log(data);
-									if (data.state) {
-										$.messager.alert("系统提示","恭喜您，数据删除成功！", "info");
-										$("#dg").datagrid("reload");
-									} else {
-										$.messager.alert("系统提示","数据删除失败，请重新操作！", "error");
-									}
-								},"json");
-							} else {
-								$("#dg").datagrid("unselectAll");	//关闭对话框时取消所选择的行记录
-							}
-						});
-					}
-				}, '-', {
-					iconCls : 'icon-reload',
-					text : '刷新',
-					handler : function() {
-						$("#dg").datagrid("reload");
-					}
-				} ], */
+				<%--/* [--%>
+				<%--{--%>
+					<%--iconCls : 'icon-add', //图标--%>
+					<%--text : '添加', //名称--%>
+					<%--handler : function() { //回调函数--%>
+						<%--document.getElementById("user_name").disabled = false;--%>
+						<%--$("#fm").form("reset");--%>
+						<%--//打开对话框并且设置标题--%>
+						<%--$("#dlg").dialog("open").dialog("setTitle", "添加用户");--%>
+						<%--//将url设置为添加--%>
+						<%--url = "${pageContext.request.contextPath }/user/addUser.do";--%>
+					<%--}--%>
+				<%--},--%>
+				<%--'-',--%>
+				<%--{--%>
+					<%--iconCls : 'icon-edit',--%>
+					<%--text : '修改',--%>
+					<%--handler : function() {--%>
+						<%--//获取选中要修改的行--%>
+						<%--var selectedRows = $("#dg").datagrid("getSelections");--%>
+						<%--//console.log(selectedRows)--%>
+						<%--//确保被选中行只能为一行--%>
+						<%--if (selectedRows.length != 1) {--%>
+							<%--$.messager.alert("系统提示","请选择一个要修改的用户！","info");--%>
+							<%--return;--%>
+						<%--}--%>
+						<%--//获取选中行user_name--%>
+						<%--var row = selectedRows[0];--%>
+						<%--console.log(row);--%>
+						<%--//打开对话框并且设置标题--%>
+						<%--//$("input[type='text']:first").prop('disabled','disabled');--%>
+						<%--$("#dlg").dialog("open").dialog("setTitle", "修改用户信息");--%>
+						<%--//将数组回显对话框中--%>
+						<%--$("#fm").form("load", row);//会自动识别name属性，将row中对应的数据，填充到form表单对应的name属性中--%>
+						<%--document.getElementById("user_name").disabled = true;--%>
+						<%--url = "${pageContext.request.contextPath }/user/updateUser.do";--%>
+					<%--}--%>
+				<%--},--%>
+				<%--'-',--%>
+				<%--{--%>
+					<%--iconCls : 'icon-remove',--%>
+					<%--text : '删除',--%>
+					<%--handler : function() {--%>
+						<%--var selectedRows = $("#dg").datagrid("getSelections");--%>
+						<%--//console.log(selectedRows);--%>
+						<%--//判断是否有选择的行--%>
+						<%--if (selectedRows.length == 0) {--%>
+							<%--$.messager.alert("系统提示","请选择要删除的数据！","info");--%>
+							<%--return;--%>
+						<%--}--%>
+						<%--//定义选中 选中user_name数组--%>
+						<%--var ids = [];--%>
+						<%--//循环遍历将选中行的id push进入数组--%>
+						<%--for ( var i = 0; i < selectedRows.length; i++) {--%>
+							<%--ids.push(selectedRows[i].user_id);--%>
+						<%--}--%>
+						<%--//console.log(ids)--%>
+						<%--//提示是否确认删除--%>
+						<%--$.messager.confirm("系统提示","您确定要删除选中的<font color=red>" + selectedRows.length + "</font>条数据么？",--%>
+						<%--function(flag) {--%>
+							<%--if (flag) {--%>
+								<%--$.post("${pageContext.request.contextPath }/user/deleteUserBatchs.do",--%>
+								<%--{--%>
+									<%--idsStr : ids.join(","),--%>
+								<%--},--%>
+								<%--function(data) {--%>
+									<%--//console.log(data);--%>
+									<%--if (data.state) {--%>
+										<%--$.messager.alert("系统提示","恭喜您，数据删除成功！", "info");--%>
+										<%--$("#dg").datagrid("reload");--%>
+									<%--} else {--%>
+										<%--$.messager.alert("系统提示","数据删除失败，请重新操作！", "error");--%>
+									<%--}--%>
+								<%--},"json");--%>
+							<%--} else {--%>
+								<%--$("#dg").datagrid("unselectAll");	//关闭对话框时取消所选择的行记录--%>
+							<%--}--%>
+						<%--});--%>
+					<%--}--%>
+				<%--}, '-', {--%>
+					<%--iconCls : 'icon-reload',--%>
+					<%--text : '刷新',--%>
+					<%--handler : function() {--%>
+						<%--$("#dg").datagrid("reload");--%>
+					<%--}--%>
+				<%--} ], */--%>
 				//同列属性，但是这些列将会冻结在左侧,z大小不会改变，当宽度大于250时，会显示滚动条，但是冻结的列不在滚动条内
 				frozenColumns : [ [ 
 					{field : 'ck', checkbox : true}, //复选框

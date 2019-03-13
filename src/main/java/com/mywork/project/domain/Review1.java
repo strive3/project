@@ -1,5 +1,7 @@
 package com.mywork.project.domain;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -15,6 +17,7 @@ public class Review1 implements Serializable{
 	private String review1_status;// 审核状态
 	private String review1_user;// 审核单位
 	private String review1_operator; //操作人员
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date review1_time;// 审核时间
 	private String review1_remark;// 备注
 

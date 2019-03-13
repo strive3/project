@@ -21,6 +21,7 @@
 <body class="easyui-layout">
 	<div data-options="region:'north',title:'header',split:true,noheader:true," style="height:60px;background:#2D3E50;">
 		<div class="logo">后台管理</div>
+		<%--引入js时间戳--%>
 		<div class="timeDiv" id="timeDiv"></div>
 		<div class="logout">您好，<font color="#95B8E7">${user.user_name }</font><font color="yellow">${user.real_name }</font> &nbsp;| &nbsp;<a href="javascript:logout();"><img src='${pageContext.request.contextPath }/jquery-easyui-1.3.4/themes/usericons/logout.png'/>&nbsp;退出用户</a></div>
 	</div>   
@@ -122,8 +123,8 @@
 			<a href="javascript:closePasswordModifyDialog()" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true">关闭</a>
 		</div>
 	</div>
-    
-    <script type="text/javascript"  src="${pageContext.request.contextPath }/js/currentTime.js"></script>
+    <%--引入js时间戳--%>
+    <script   type="text/javascript"  src="${pageContext.request.contextPath }/js/currentTime.js"  ></script>
     
 </body>
 </html>

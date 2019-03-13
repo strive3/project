@@ -1,5 +1,7 @@
 package com.mywork.project.domain;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -12,6 +14,7 @@ public class ItemType implements Serializable {
 	
 	private Integer itemType_id;// 类型编号
 	private String itemType_name;// 类型名称
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date itemType_createTime;// 该类别的创建时间
 	private String item_description;// 该类别的描述
 	private Integer item_count;// 该类别下的项目数量

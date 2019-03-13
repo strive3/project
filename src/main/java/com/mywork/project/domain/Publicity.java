@@ -1,5 +1,7 @@
 package com.mywork.project.domain;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -18,6 +20,7 @@ public class Publicity implements Serializable {
 	private String review2_score;// 评审得分
 	private String publicity_status;// 立项状态
 	private String publicity_grade;// 项目立项等级
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date publicity_time;// 项目立项时间
 	private String publicity_remark;// 备注
 

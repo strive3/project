@@ -1,48 +1,51 @@
-<%@page import="java.util.Calendar"%>
+<%@page import="java.util.Calendar" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
+         pageEncoding="UTF-8" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="serverPath" value="http://192.168.0.50:9080/ssmFile"></c:set>
 <c:set var="mm" value="${list }"></c:set>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>用户申报管理</title>
-	<%@include file="../head.jspf"%>
-	<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.form.js"></script>
-	<script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/ueditor1_4_3_3/ueditor.config.js"></script>
-	<script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/ueditor1_4_3_3/ueditor.all.min.js"></script>
-	<script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/ueditor1_4_3_3/lang/zh-cn/zh-cn.js"></script>
-	<style type="text/css">
-		a{
-			text-decoration:none;
-		}
-		
-		a:hover{
-			text-decoration:underline;
-			font-weight:bold;
-			font-size: 14px;
-			color: #E96129;
-		}
-		
-		#searchBox{
-		    background: #fff8f8;
-		    font-size: 12px;
-		    width: 180px;
-		}
-		
-		.datagrid-header-row td{
-			background-color:#E0ECFF;
-			font-weight:bold;
-			height : 28px;
-		}
-		
-		.datagrid-btable tr{
-			height: 31px;
-		}
-	</style>
-	
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>用户申报管理</title>
+    <%@include file="../head.jspf" %>
+    <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.form.js"></script>
+    <script type="text/javascript" charset="utf-8"
+            src="${pageContext.request.contextPath}/ueditor1_4_3_3/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8"
+            src="${pageContext.request.contextPath}/ueditor1_4_3_3/ueditor.all.min.js"></script>
+    <script type="text/javascript" charset="utf-8"
+            src="${pageContext.request.contextPath}/ueditor1_4_3_3/lang/zh-cn/zh-cn.js"></script>
+    <style type="text/css">
+        a {
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            font-weight: bold;
+            font-size: 14px;
+            color: #E96129;
+        }
+
+        #searchBox {
+            background: #fff8f8;
+            font-size: 12px;
+            width: 180px;
+        }
+
+        .datagrid-header-row td {
+            background-color: #E0ECFF;
+            font-weight: bold;
+            height: 28px;
+        }
+
+        .datagrid-btable tr {
+            height: 31px;
+        }
+    </style>
+
 </head>
 	<script type="text/javascript">
 		$(function() {
@@ -634,9 +637,9 @@
 				<a class="easyui-linkbutton" data-options="iconCls:'icon-clear',plain:true," href="javascript:clear();">重置查询</a>
 			</div>
 		</div>
-		
+		<%--显示表的信息--%>
 		<table id="dg"></table>
-		
+		<%--修改使用的div--%>
 		<div id="dlg" class="easyui-dialog" style="width:900px; height:600px; padding:10px 20px" data-options="iconCls:'icon-save',closed:true,collapsible:true,minimizable:true,maximizable:true,resizable:true,buttons:'#dlg-buttons'">
 			<form id="fm" method="POST">
 				<input type="hidden" id="item_id" name="item_id"/>
@@ -691,8 +694,8 @@
 						</td> -->
 						<td>
 							<!-- 加载编辑器的容器 -->
-							<script id="editor" type="text/plain" style="width:700px; height:150px;"></script>
-							<input type="hidden" id="item_description" name="item_description"> <%-- UEditor不能作为表单的一部分提交，所以用这种隐藏域的方式 --%>
+                            <script id="editor" type="text/plain" style="width:700px; height:150px;" />
+							<input type="hidden" id="item_description"  name="item_description"> <%-- UEditor不能作为表单的一部分提交，所以用这种隐藏域的方式 --%>
 						</td>
 					</tr>
 				</table>
@@ -731,5 +734,6 @@
 		<script type="text/javascript">
 			var ue = UE.getEditor('editor');
 		</script>
-	</body>
+
+        </body>
 </html>
