@@ -45,6 +45,6 @@
         </property>
     </bean>
 
-  <!-- 使用默认的静态资源处理Servlet处理静态资源 -->
+    <!-- 使用默认的静态资源处理Servlet处理静态资源 -->
     <mvc:default-servlet-handler/>
 </beans>

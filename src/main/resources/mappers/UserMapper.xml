@@ -198,5 +198,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			#{user_name}
 		</foreach>
 	</update>
-	
+
+
+	<update id="updateUserInfo">
+		UPDATE user
+		<set>
+			<if test="real_name != null and real_name != ''">
+				real_name = #{real_name},
+			</if>
+			<if test="user_remark != null and user_remark != ''">
+				user_remark = #{user_remark}
+			</if>
+		</set>
+		WHERE user_name = #{user_name}
+
+	</update>
 </mapper>

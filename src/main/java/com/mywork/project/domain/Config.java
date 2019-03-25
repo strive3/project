@@ -10,7 +10,7 @@ public class Config implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Integer config_id; // 编号
-	private String config_flag; // 项目进度状态
+	private String config_flag; // 项目进度状态 1:可申报阶段 2：系部审核阶段 3：专家评审阶段 4：项目立项阶段
 
 	public Integer getConfig_id() {
 		return config_id;

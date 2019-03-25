@@ -8,8 +8,7 @@ public interface ConfigDao {
 	
 	/**
 	 * 系统控制开关
-	 * @param config_flag
-	 * @return 
+	 * @return
 	 */
 	public int updateConfig(Config config);
 

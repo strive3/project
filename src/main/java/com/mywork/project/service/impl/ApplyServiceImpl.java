@@ -41,6 +41,7 @@ public class ApplyServiceImpl implements ApplyService {
 		PageBean pageBean = new PageBean(currentPage, pageSize);
 		//总记录数
 		Long total = applyDao.count(apply, str);
+System.out.println("total:  "+total);
 		//得到查询出来的数据
 		List<Map<String, Object>> list = applyDao.listApply(apply, str, pageBean.getStart(), pageBean.getPageSize());
 		try {

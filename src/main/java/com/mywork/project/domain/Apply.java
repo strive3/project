@@ -15,7 +15,7 @@ public class Apply implements Serializable {
 	private Integer item_id; // 项目编号
 	private String item_name; // 项目名称
 	private String item_type; // 项目类别
-	private String item_user; // 项目申报人
+	private String item_user; // 项目申报人        ==   user:real_name
 	private String user_department; // 所属系部
 	private String apply_year; // 申报年份
 	@DateTimeFormat(pattern = "yyyy-MM-dd")

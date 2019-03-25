@@ -79,28 +79,27 @@ public interface UserDao {
 
 	/**
 	 * 根据id删除用户
-	 * @param user_name
+	 * @param id
 	 * @return 
 	 */
 	public int deleteUserById(Integer id);
 	
 	/**
 	 * 根据id查找用户名
-	 * @param user_name
+	 * @param id
 	 * @return
 	 */
 	public String findNameById(Integer id);
 	
 	/**
 	 * 根据登录表id删除
-	 * @param id
-	 * @return 
+	 * @return
 	 */
 	public int deleteSignlnByName(String user_name);
 
 	/**
 	 * 批量删除(user表)
-	 * @param names
+	 * @param ids
 	 * @return 
 	 */
 	public int deleteUserBatchs(Integer[] ids);
@@ -130,7 +129,6 @@ public interface UserDao {
 
 	/**
 	 * 批量更改用户状态
-	 * @param ids
 	 * @param signln_valid
 	 * @return
 	 */
@@ -144,4 +142,10 @@ public interface UserDao {
 	 */
 	public int changeSignlnStatusBatchs(@Param("list")List<String> list, @Param("signln_valid")String signln_valid);
 
+	/**
+	 * 修改用户的个人信息
+	 * @param user
+	 * @return
+	 */
+	int updateUserInfo(User user);
 }

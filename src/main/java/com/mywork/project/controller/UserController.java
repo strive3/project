@@ -136,5 +136,13 @@ public class UserController {
 		userService.changeUserStatusBatchs(idsStr, signln_valid);
 		return new JsonResult();
 	}
+
+	//修改用户的个人信息
+	@RequestMapping("/updateUserInfo")
+	@ResponseBody
+	public JsonResult updateUserInfo(User user){
+		userService.updateUserInfo(user);
+		return new JsonResult();
+	}
 	
 }

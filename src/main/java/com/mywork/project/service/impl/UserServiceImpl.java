@@ -144,4 +144,12 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	@Override
+	public void updateUserInfo(User user) {
+		int i = userManageDao.updateUserInfo(user);
+		if(i == 0) {
+			throw new RuntimeException("更新信息失败，请重新操作！");
+		}
+	}
+
 }

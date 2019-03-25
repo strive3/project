@@ -14,7 +14,7 @@ public class Review2 implements Serializable {
 	
 	private Integer review2_id;// 评审序号
 	private Integer item_id; // 项目编号
-	private String review2_user;// 评审专家
+	private String review2_user;// 评审专家         --->user_type：4
 	private String review2_status;// 评审状态
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date review2_time;// 评审时间

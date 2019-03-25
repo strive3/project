@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import com.google.gson.Gson;
 import com.mywork.project.domain.Apply;
 import com.mywork.project.domain.Review2;
 import com.mywork.project.domain.User;

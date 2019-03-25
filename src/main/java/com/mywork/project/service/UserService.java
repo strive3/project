@@ -15,8 +15,6 @@ public interface UserService {
 	
 	/**
 	 * 根据用户类型查找(分页显示)
-	 * @param page
-	 * @param rows
 	 * @return
 	 */
 	public Map<String, Object> findUserByType(String str, User user, int currentPage, int pageSize);
@@ -42,13 +40,11 @@ public interface UserService {
 
 	/**
 	 * 根据id删除用户
-	 * @param user_name
 	 */
 	public void deleteUserById(Integer user_id);
 
 	/**
 	 * 批量删除
-	 * @param names
 	 */
 	public void deleteUserBatchs(String idsStr);
 
@@ -66,4 +62,8 @@ public interface UserService {
 	 */
 	public void changeUserStatusBatchs(String idsStr, String signln_valid);
 
+	/**
+	 * 更改用户信息
+	 */
+	public void updateUserInfo(User user);
 }

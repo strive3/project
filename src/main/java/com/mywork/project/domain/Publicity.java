@@ -18,7 +18,7 @@ public class Publicity implements Serializable {
 	private String review1_user;// 推荐单位
 	private String review2_user;// 评审专家
 	private String review2_score;// 评审得分
-	private String publicity_status;// 立项状态
+	private String publicity_status;// 立项状态   1:未审批，（2，3）审批
 	private String publicity_grade;// 项目立项等级
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date publicity_time;// 项目立项时间

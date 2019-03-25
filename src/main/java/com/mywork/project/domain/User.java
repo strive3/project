@@ -23,7 +23,7 @@ public class User implements Serializable {
 	//该注解解决从前端传来的日期类型插入数据库时有错时使用
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date reg_date; // 添加时间
-	private String user_type; // 用户类型    1：系统管理员  2：项目管理员  3系部管理员  4:评审专家  5项目申报员
+	private String user_type; // 用户类型    1：系统管理员  2：项目管理员  3系部管理员  4:评审专家  5:项目申报员
 	private String signln_valid; // 状态      1：禁用    2：启用
 	private String user_remark; // 备注
 
