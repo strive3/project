@@ -88,8 +88,10 @@ System.out.println("total:  "+total);
 		int i = applyDao.addApply(apply);
 		if(i != 0) {
 			if("2".equals(apply.getItem_submit())) {
+
 				int item_id = apply.getItem_id();
 				int j = review1Dao.addReview1(item_id);
+
 				String item_status = "1";
 				int k = applyDao.changeStatus(item_id, item_status);
 				if(j == 0 || k == 0) {

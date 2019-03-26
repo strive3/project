@@ -26,7 +26,7 @@
                 }, //进行验证，通过才让提交
                 success: function (result) {
                     var result = eval("(" + result + ")"); //将json格式的result转换成js对象
-                    alert(result.message);
+                    // alert(result.message);
                     if (result.message == "ok") {
                         $.messager.alert("系统提示", "博主信息更新成功");
                     } else {

@@ -619,7 +619,8 @@
 		</div>
 		
 		<table id="dg"></table>
-		
+
+
 		<div id="dlg" class="easyui-dialog" style="width:500px; height:480px; padding:10px 20px" data-options="iconCls:'icon-save',closed:true,buttons:'#dlg-buttons'">
 			<form id="fm" method="POST">
 				<input type="hidden" id="user_id" name="user_id"/>

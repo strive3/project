@@ -89,6 +89,7 @@ public class Review1Controller {
 	}
 	
 	//更新审核项目
+    //审核时候 调用的方法
 	@RequestMapping("/updateReview1")
 	@ResponseBody
 	public JsonResult updateReview1(Review1 review1) {

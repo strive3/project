@@ -73,13 +73,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			AND (apply.item_name LIKE CONCAT('%', #{str}, '%') OR apply.item_user LIKE CONCAT('%', #{str}, '%'))
 		</if>
 	</select>
-	
+	<!--分配专家后让它默认为未审核状态 即为1 -->
 	<insert id="addReview2">
 		INSERT INTO
 		review2(item_id, 
-			review2_user)
+			review2_user，review2_status)
 		VALUES(#{item_id}, 
-			#{review2_user})
+			#{review2_user},1)
 	</insert>
 	
 	<update id="updateReview2" parameterType="com.mywork.project.domain.Review2">

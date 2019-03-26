@@ -44,10 +44,12 @@
 	            <a href="javascript:openPasswordModifyDialog();" class="easyui-linkbutton"
 	               data-options="plain:true,iconCls:'icon-modifyPassword'" style="width: 125px;padding:2px 8px 2px 5px;">修改密码</a>
 	        </div>
+
 	        <div title="系部人员管理" data-options="iconCls:'icon-user_manager'" style="padding:10px;">
 	            <a href="javascript:openTab('本系用户列表','${pageContext.request.contextPath }/user/admin/userManage.do?user_type=5&user_department=${user.user_department }','icon-user_department')" class="easyui-linkbutton"
 	               data-options="plain:true,iconCls:'icon-user_department'" style="width: 125px;padding:2px 8px 2px 5px;">本系用户列表</a>
 	        </div>
+
     		<div title="系部审核管理" data-options="iconCls:'icon-report_manage'" style="padding:10px">
 	            <a href="javascript:openTab('本系申报情况','${pageContext.request.contextPath }/review1/department/review1Manage.do?&history_flag=1','icon-list')" class="easyui-linkbutton"
 	               data-options="plain:true,iconCls:'icon-list'" style="width: 125px;padding:2px 8px 2px 5px;">本系申报情况</a>

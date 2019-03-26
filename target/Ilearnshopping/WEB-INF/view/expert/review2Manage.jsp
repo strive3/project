@@ -86,27 +86,29 @@
 	            			$("#dg").datagrid("hideColumn", "review2_remark");
 	            		} else {
 	            			//alert(2);
-	            			$("#dg").datagrid("hideColumn", "option");
+
+
+	            			//$("#dg").datagrid("hideColumn", "option");
 	            		}
 		            } else {
 		            	$.messager.alert("提示框","<font size='2'>未查询到相关数据！</font>", "info");
 		            }
 		        },
 				columns : [ [ 
-					{field : 'review2_id',title : '评审序号',align : 'center',width : 100, hidden : true}, 
-					{field : 'item_id',title : '项目编号',align : 'center',width : 100, hidden : true}, 
-					{field : 'item_name',title : '项目名称',align : 'center', sortable : true, width : 100}, 
+					{field : 'review2_id',title : '评审序号',align : 'center',width : 100, hidden : true},
+					{field : 'item_id',title : '项目编号',align : 'center',width : 100, hidden : true},
+					{field : 'item_name',title : '项目名称',align : 'center', sortable : true, width : 100},
 					{field : 'item_type',title : '项目类别',align : 'center',width : 100},
-					{field : 'item_user',title : '项目申报人',align : 'center', sortable : true, width : 100}, 
-					{field : 'user_title',title : '职称',align : 'center',width : 100}, 
-					{field : 'apply_year',title : '申报年份',align : 'center', sortable : true, width : 100}, 
+					{field : 'item_user',title : '项目申报人',align : 'center', sortable : true, width : 100},
+					{field : 'user_title',title : '职称',align : 'center',width : 100},
+					{field : 'apply_year',title : '申报年份',align : 'center', sortable : true, width : 100},
 					{field : 'review1_user',title : '审核单位',align : 'center', sortable : true, width : 100},
 					{field : 'review2_status',title : '评审状态',align : 'center',width : 100, formatter : review2_statusFormatter},
 					{field : 'review2_time',title : '评审时间',align : 'center', sortable : true, width : 100, formatter : datetimeFormatter},
 					{field : 'review2_score',title : '评审分数',align : 'center', sortable : true ,width : 100, formatter : review2_scoreFormatter},
 					{field : 'review2_opinion',title : '评审意见',align : 'center',width : 100},
 					{field : 'review2_remark',title : '备注',align : 'center',width : 100},
-					{field : 'option',title : '操作',align : 'center',width : 100,formatter : optionFormatter}, 
+					{field : 'option',title : '操作',align : 'center',width : 100,formatter : optionFormatter},
 				] ],
 			});
 		});

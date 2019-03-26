@@ -371,7 +371,8 @@
 		</div>
 		
 		<table id="dg"></table>
-		
+
+        <%-- 点击查看详情时出来的div   也就是审核通过还是不通过出现的div --%>
 		<div id="dlg" class="easyui-dialog" style="width:500px; height:480px; padding:10px 20px" data-options="iconCls:'icon-save',closed:true,collapsible:true,minimizable:true,maximizable:true,resizable:true,buttons:'#dlg-buttons'">
 			<form id="fm" method="POST">
 				<input type="hidden" id="review1_id" name="review1_id"/>
