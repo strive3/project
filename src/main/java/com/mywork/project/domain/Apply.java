@@ -26,7 +26,7 @@ public class Apply implements Serializable {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date apply_time; // 提交时间
 	private String item_description; // 项目描述
-	// 刚添加的时候为1，系部审核通过后为2，分配专家后为3，专家评审后为4，系部审核未通过为6，
+	// 刚添加的时候为1，系部审核通过后为2，分配专家后为3，专家评审后为4，只要是立项失败就是6，
 	private String item_status; // 当前状态
 	private String history_flag; // 时间标志 (1: 当前正在申报；2: 历史申报记录)
 	private String path;	//附件路径

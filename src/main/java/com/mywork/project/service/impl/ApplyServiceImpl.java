@@ -183,12 +183,14 @@ System.out.println("total:  "+total);
 		}
 	}
 
+	//将项目设置为历史申报记录
 	@Override
 	@Transactional
 	public void setHistory() {
 		List<Config> list = configDao.show();
 		if(list != null) {
 			String config_flag = list.get(0).getConfig_flag();
+			//如果
 			if("5".equals(config_flag)) {	//注意config_flag为String引用类型，config_flag的值为5，但config_flag不等于“5”
 				int i = applyDao.setHistory();
 				if(i == 0) {

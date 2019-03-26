@@ -145,7 +145,7 @@
 </head>
 
 <body style="margin: 10px; font-family: microsoft yahei" onload="loadType();">
-<div id="p" class="easyui-panel" title="填写申报信息" style="padding: 10px; width: 1720px">
+<div id="p" class="easyui-panel" title="填写申报信息" style="padding: 10px; width: 1200px">
 	<form id="fm" method="POST">
 		<input type="hidden" id="item_user" name="item_user" value="${user.real_name }">
 		<input type="hidden" id="user_title" name="user_title" value="${user.user_title }">
@@ -153,7 +153,7 @@
 		<input type="hidden" id="item_submit" name="item_submit" value="1">
 		<h2 align="center">请填写申报信息</h2>
 		<hr/><br/>
-		<table cellspacing="20px" align="center" width="60%">
+		<table cellspacing="20px" align="center" width="100%">
 			<tr>
 				<td width="80px">项目名称：</td>
 				<td>
@@ -187,7 +187,7 @@
 				<td>项目描述：</td>
 				<td>
 					<!-- 加载编辑器的容器 -->
-					<script id="editor" type="text/plain" style="width:700px; height:300px;" ></script>
+					<script id="editor" type="text/plain" style="width:750px; height:300px;" ></script>
                     <input type="hidden" id="item_description"  name="item_description"> <%-- UEditor不能作为表单的一部分提交，所以用这种隐藏域的方式 --%>
                         </td>
                         </tr>

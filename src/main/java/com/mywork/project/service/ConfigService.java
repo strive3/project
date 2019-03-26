@@ -10,7 +10,6 @@ public interface ConfigService {
 	
 	/**
 	 * 系统控制开关
-	 * @param config_flag
 	 */
 	public void updateConfig(Config config);
 

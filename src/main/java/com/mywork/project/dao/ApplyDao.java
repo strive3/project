@@ -80,6 +80,7 @@ public interface ApplyDao {
 
 	/**
 	 * 设置时间标志
+	 * 将项目设置为  历史申报记录
 	 * @return
 	 */
 	public int setHistory();

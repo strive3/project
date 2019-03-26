@@ -41,7 +41,7 @@
 	</script>
 </head>
 <body class="easyui-layout">
-	<div data-options="region:'north',title:'header',split:true,noheader:true," style="height:60px;background:#2D3E50;">
+	<div data-options="region:'north',title:'header',split:true,noheader:true," style="height:100%;background:#2D3E50;">
 		<div class="logo">后台管理</div>
 		<div class="timeDiv" id="timeDiv"></div>&nbsp;&nbsp;
 		<div class="logout">欢迎您，
@@ -54,7 +54,7 @@
 			<a href="javascript:logout();"><img src='${pageContext.request.contextPath }/jquery-easyui-1.3.4/themes/usericons/logout.png'/>&nbsp;退出用户</a>
 		</div>
 	</div>   
-    <div data-options="region:'south',title:'footer',split:true,noheader:true," style="height:40px;line-height:30px;text-align:center;background:#2D3E50;"><font color="#fff">Copyright&nbsp;&copy;2018  计算机与信息安全学院</font></div>     
+    <div data-options="region:'south',title:'footer',split:true,noheader:true," style="height:40px;line-height:30px;text-align:center;background:#2D3E50;"><font color="#fff">Copyright&nbsp;&copy;2019  毕业设计项目申报系统</font></div>
     <div data-options="region:'west',title:'导航菜单',split:true,iconCls:'icon-world'," style="width:175px;padding:0px;">
     	<div class="easyui-accordion" data-options="fit:false,border:false,animate:true">
     		<div title="个人信息中心" data-options="selected:true,iconCls:'icon-user_control'" style="padding:10px;">

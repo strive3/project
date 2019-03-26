@@ -77,7 +77,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="addReview2">
 		INSERT INTO
 		review2(item_id, 
-			review2_user，review2_status)
+			review2_user,review2_status)
 		VALUES(#{item_id}, 
 			#{review2_user},1)
 	</insert>

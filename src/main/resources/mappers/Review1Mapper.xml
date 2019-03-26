@@ -82,7 +82,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!--添加到系部审核列表时，默认让它为未审核状态  即1 -->
 	<insert id="addReview1" parameterType="int">
 		INSERT INTO review1(item_id,review1_status)
-		VALUES(#{item_id},1)
+		VALUES(#{item_id},'1')
 	</insert>
 	
 	<insert id="addReview1Batchs">

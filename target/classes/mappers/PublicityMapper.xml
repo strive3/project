@@ -80,19 +80,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND apply.item_id = review2.item_id
 		AND apply.item_id = #{item_id}
 	</select>
-	
+	<!--添加到项目立项 列表时 默认publicity_status = 1  意为未审批-->
 	<insert id="addPublicity">
 		INSERT INTO
 		publicity(item_id,
 			item_user,
 			review1_user,
 			review2_user,
-			review2_score)
+			review2_score,
+			publicity_status)
 		VALUES(#{item_id},
 			#{item_user},
 			#{review1_user},
 			#{review2_user},
-			#{review2_score})
+			#{review2_score},
+			'1')
 	</insert>
 	
 	<update id="updatePublicity" parameterType="com.mywork.project.domain.Publicity">

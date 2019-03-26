@@ -32,6 +32,8 @@ public class ConfigServiceImpl implements ConfigService {
 		}
 		if(config != null) {
 			if("5".equals(config.getConfig_flag())) {
+				//如果系统开关为5（结束了本次的工作）的话 调用这个方法
+				//将所有的 item_status = 5 / 6 的 项目的history_flag  都设置为历史申报记录
 				int j = applyDao.setHistory();
 				if(j == 0) {
 					throw new RuntimeException("设置时间标志失败，请重新操作！");
