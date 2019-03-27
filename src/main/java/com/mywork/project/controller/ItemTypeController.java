@@ -37,6 +37,7 @@ public class ItemTypeController {
 			@RequestParam(value = "page", required = false) String page,
 			@RequestParam(value = "rows", required = false) String rows,
 			@RequestParam(value = "itemType_name", required = false) String itemType_name) {
+
 		int currentPage = Integer.parseInt(page);
 		int pageSize = Integer.parseInt(rows);
 		Map<String, Object> map = itemTypeService.listItemType(itemType_name, currentPage, pageSize);

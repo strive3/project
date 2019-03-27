@@ -87,16 +87,19 @@ System.out.println("total:  "+total);
 		apply.setHistory_flag("1");
 		int i = applyDao.addApply(apply);
 		if(i != 0) {
+			//如果项目已提交
 			if("2".equals(apply.getItem_submit())) {
-
+				//将该项目添加到系部审核列表
 				int item_id = apply.getItem_id();
 				int j = review1Dao.addReview1(item_id);
 
+				//将项目的  item_status  设置为1
 				String item_status = "1";
 				int k = applyDao.changeStatus(item_id, item_status);
 				if(j == 0 || k == 0) {
 					throw new RuntimeException("添加到系部审核列表失败，请重新操作！");
 				}
+				//itemtype表中的item_count     更新该类型下面的项目数量
 				int m = itemTypeDao.addCount(item_id);
 				if(m == 0) {
 					throw new RuntimeException("更新项目数量失败，请重新操作！");

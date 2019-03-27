@@ -28,7 +28,7 @@ public class Review2Controller {
 	public String review2Manage(HttpServletRequest request, Review2 review2,
 			@RequestParam(value = "history_flag", required = false) String history_flag) {
 		/**
-		 * 传入的review2对象主要包括review2_user、review2_status字段
+		 * 传入的review2对象主要包括review2_user（user.getReal_name()）、review2_status字段
 		 */
 		request.setAttribute("history_flag", history_flag);
 		User user = (User)request.getSession().getAttribute("user");
@@ -59,7 +59,10 @@ public class Review2Controller {
 		Map<String, Object> map = review2Service.listReview2(review2, apply, user, str, currentPage, pageSize);
 		return map;
 	}
-	
+
+	/**
+	 * 分配评审专家  调用的接口
+	 */
 	@RequestMapping("/addReview2")
 	@ResponseBody
 	public JsonResult addReview2(Integer item_id, String review2_user) {

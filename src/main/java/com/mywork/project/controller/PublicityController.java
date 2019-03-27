@@ -22,12 +22,26 @@ public class PublicityController {
 	
 	@Resource
 	private PublicityService publicityService;
-	
+
+	/**
+	 * 分配评审专家
+	 */
 	@RequestMapping("/itemManager/assignExpert")
 	public String assignExpert() {
 		return "itemManager/assignExpert";
 	}
-	
+
+	/**
+	 * 查看分配情况   跳转到jsp页面
+	 */
+	@RequestMapping("/itemManager/assignResult")
+	public String assignResult(){
+		return "itemManager/assignResult";
+	}
+
+	/**
+	 * 所有处理审批   调用的接口
+	 */
 	@RequestMapping("/itemManager/publicityManage")
 	public String publicityManage(Model model, Apply apply,
 			@RequestParam(value = "publicity_status", required = false) String publicity_status) {

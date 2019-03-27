@@ -47,14 +47,17 @@ public class Review2ServiceImpl implements Review2Service {
 			String config_flag = lConfigs.get(0).getConfig_flag();
 			String history_flag = apply.getHistory_flag();
 			/**
-			 * 1 判断config_flag项目进度是否为专家评审阶段，如果不是则无法获取到数据
-			 * 2 如果history_flag为"2"，则表示为历史记录，可以获取到数据
+			 * 先判断review2_status 是否为null  如何是null  则是 项目管理员查询分配情况（查询所有的分配）
+			 * 如果review2不是null则：
+			 * 1 ）判断config_flag项目进度是否为专家评审阶段，如果不是则无法获取到数据
+			 * 2 ）如果history_flag为"2"，则表示为历史记录，可以获取到数据
+			 *
 			 */
-			if("3".equals(config_flag) || "4".equals(config_flag) || "5".equals(config_flag) || "2".equals(history_flag)) {
+			if (review2.getReview2_status() == null && review2.getReview2_user() == null){
 				//总记录数
 				total = review2Dao.count(review2, apply, user, str);
 				//得到查询的数据
-				list = review2Dao.listReview2(review2, apply, user, str, pageBean.getStart(), pageBean.getPageSize());
+				list = review2Dao.listReview2(null, null, null, str, pageBean.getStart(), pageBean.getPageSize());
 				try {
 					if(list.size() == 0) {
 						throw new RuntimeException("未查询到相关数据");
@@ -62,14 +65,28 @@ public class Review2ServiceImpl implements Review2Service {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+			}else{
+				if ("3".equals(config_flag) || "4".equals(config_flag) || "5".equals(config_flag) || "2".equals(history_flag)) {
+					//总记录数
+					total = review2Dao.count(review2, apply, user, str);
+					//得到查询的数据
+					list = review2Dao.listReview2(review2, apply, user, str, pageBean.getStart(), pageBean.getPageSize());
+					try {
+						if(list.size() == 0) {
+							throw new RuntimeException("未查询到相关数据");
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
 			}
 		}
-		
 		map.put("total", total);
 		map.put("rows", list);
 		System.out.println(map);
 		return map;
 	}
+
 
 	@Override
 	@Transactional

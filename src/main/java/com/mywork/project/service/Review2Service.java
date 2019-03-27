@@ -10,13 +10,8 @@ public interface Review2Service {
 	
 	/**
 	 * 显示专家评审列表
-	 * @param review2
-	 * @param apply
-	 * @param user
-	 * @param str
-	 * @param currentPage
-	 * @param pageSize
-	 * @return
+	 *
+	 *  当 review2 为null的时候 查询的是 分配情况
 	 */
 	public Map<String, Object> listReview2(Review2 review2, Apply apply, User user, String str, int currentPage, int pageSize);
 

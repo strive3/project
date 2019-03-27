@@ -14,7 +14,7 @@ public class Review1 implements Serializable{
 	
 	private Integer review1_id;// 审核序号
 	private Integer item_id;// 项目编号
-	private String review1_status;// 审核状态
+	private String review1_status;// 审核状态      1：未审核  2：审核通过  3：审核没通过
 	private String review1_user;// 审核单位
 	private String review1_operator; //操作人员	因为每个系的领导很多 所以操作人员可能不同
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
