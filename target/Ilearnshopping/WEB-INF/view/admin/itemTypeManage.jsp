@@ -45,7 +45,7 @@
 				url : '../../itemType/listItemType.do',
 				title : '当前列表',
 				rownumbers : true,
-				height : 800,
+				height : 600,
 				//singleSelect : true,
 				//载入提示信息
 				loadMsg : 'loading...',
