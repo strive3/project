@@ -15,5 +15,4 @@ public interface ExcelService {
 	public XSSFWorkbook exportPublicityExcel(String publicity_status,
 											 Apply apply, User user, String str, int currentPage, int pageSize)
 			throws Exception;
-
 }

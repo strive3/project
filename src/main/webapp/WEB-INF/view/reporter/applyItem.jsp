@@ -157,7 +157,10 @@
 			<tr>
 				<td width="80px">项目名称：</td>
 				<td>
-					<input type="text" id="item_name" name="item_name" class="easyui-validatebox" data-options="required:true">
+					<%--<input type="text" id="item_name" name="item_name" class="easyui-validatebox" data-options="required:true">--%>
+						<select id="item_name" class="easyui-combobox" name="item_name" style="width:170px;" data-options="valueField:'item_description',textField:'item_description',url:'../../itemType/list.do'" >
+							<!-- <option value="">-----请选择项目类别-----</option> -->
+						</select>
 				</td>
 				<td>项目类别：</td>
 				<td>
@@ -174,13 +177,6 @@
 				<td width="80px">截止日期：</td>
 				<td width="180px">
 					<input type="text" id="item_deadline" name="item_deadline" class="easyui-datebox" required="true">
-				</td>
-			</tr>
-			<tr>
-				<td>附件上传：</td>
-				<td>
-					<input type='file' id='importFile' name='importFile' class="file" onchange='submitFileUpload()' />
-					<input type='hidden' id='filePath' name='path' value='' reg="^.+$" tip="亲！您忘记上传文件了。" />
 				</td>
 			</tr>
 			<tr>

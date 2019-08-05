@@ -13,6 +13,7 @@ import com.mywork.project.domain.ItemVO;
 import com.mywork.project.domain.PageBean;
 import com.mywork.project.domain.User;
 import com.mywork.project.service.ExcelService;
+import com.mywork.project.test.Pojo;
 import com.mywork.project.util.ExcelBean;
 import com.mywork.project.util.ExcelUtil;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -22,7 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class ExcelServiceImpl implements ExcelService {
-	
+
 	@Resource
 	private ExcelDao excelDao;
 
@@ -31,12 +32,12 @@ public class ExcelServiceImpl implements ExcelService {
 		List<List<Object>> listob;
 		try {
 			InputStream in = file.getInputStream();
-			listob = ExcelUtil.getBankListByExcel(in,file.getOriginalFilename());
+			listob = ExcelUtil.getBankListByExcel(in, file.getOriginalFilename());
 		} catch (Exception e) {
 			throw new RuntimeException("文件解析失败，请重新导入！");
 		}
 		//遍历listob数据，把数据放到List中  
-		for(int i = 0; i < listob.size(); i++){
+		for (int i = 0; i < listob.size(); i++) {
 			List<Object> ob = listob.get(i);
 			User user = new User();
 			//通过遍历实现把每一列封装成一个model中，再把所有的model用List集合装载  
@@ -52,33 +53,33 @@ public class ExcelServiceImpl implements ExcelService {
 			user.setUser_type(String.valueOf(ob.get(8)));
 			user.setSignln_valid(String.valueOf(ob.get(9)));
 			user.setUser_remark(String.valueOf(ob.get(10)));
-			if(user != null) {
+			if (user != null) {
 				String user_sex = user.getUser_sex();
-				if("男".equals(user_sex)) {
+				if ("男".equals(user_sex)) {
 					user.setUser_sex("1");
-				} else if("女".equals(user_sex)) {
+				} else if ("女".equals(user_sex)) {
 					user.setUser_sex("2");
 				} else {
 					user.setUser_sex("");
 				}
 				String user_type = user.getUser_type();
-				if("系统管理员".equals(user_type)) {
+				if ("系统管理员".equals(user_type)) {
 					user.setUser_type("1");
-				} else if("项目管理员".equals(user_type)) {
+				} else if ("项目管理员".equals(user_type)) {
 					user.setUser_type("2");
-				} else if("系部管理员".equals(user_type)) {
+				} else if ("系部管理员".equals(user_type)) {
 					user.setUser_type("3");
-				} else if("评审专家".equals(user_type)) {
+				} else if ("评审专家".equals(user_type)) {
 					user.setUser_type("4");
-				} else if("项目申报者".equals(user_type)) {
+				} else if ("项目申报者".equals(user_type)) {
 					user.setUser_type("5");
 				} else {
 					user.setUser_type("");
 				}
 				String signln_valid = user.getSignln_valid();
-				if("禁用".equals(signln_valid)) {
+				if ("禁用".equals(signln_valid)) {
 					user.setSignln_valid("1");
-				} else if("正常".equals(signln_valid)) {
+				} else if ("正常".equals(signln_valid)) {
 					user.setSignln_valid("2");
 				} else {
 					user.setSignln_valid("");
@@ -86,7 +87,7 @@ public class ExcelServiceImpl implements ExcelService {
 			}
 			int j = excelDao.importUserExcel(user);
 			int k = excelDao.importSignlnExcel(user);
-			if(j==0 || k == 0){
+			if (j == 0 || k == 0) {
 				throw new RuntimeException("导入数据表失败，请重新操作!");
 			}
 		}
@@ -94,173 +95,175 @@ public class ExcelServiceImpl implements ExcelService {
 	}
 
 	@Override
-	public XSSFWorkbook exportUserExcel(User user, String str,  int currentPage, int pageSize)
+	public XSSFWorkbook exportUserExcel(User user, String str, int currentPage, int pageSize)
 			throws Exception {
-		
+
 		//定义分页pageBean
 		PageBean pageBean = new PageBean(currentPage, pageSize);
 		//得到该用户类型下的所有数据
-		List<User> list = excelDao.exportUserExcel(user, str, pageBean.getStart(),pageBean.getPageSize());
+		List<User> list = excelDao.exportUserExcel(user, str, pageBean.getStart(), pageBean.getPageSize());
 		//格式化数据
-		if(list != null) {
+		if (list != null) {
 			for (User u : list) {
 				//需要判断是否为空，因为switch()中不能为空值
-				if(u.getUser_sex() != null) {
+				if (u.getUser_sex() != null) {
 					Integer user_sex = Integer.parseInt(u.getUser_sex());
 					switch (user_sex) {
-					case 1:
-						u.setUser_sex("男");
-						break;
-					case 2:
-						u.setUser_sex("女");
-						break;
-					default:
-						u.setUser_sex("");
-						break;
+						case 1:
+							u.setUser_sex("男");
+							break;
+						case 2:
+							u.setUser_sex("女");
+							break;
+						default:
+							u.setUser_sex("");
+							break;
 					}
 				}
-				if(u.getUser_type() != null) {
+				if (u.getUser_type() != null) {
 					Integer userType = Integer.parseInt(u.getUser_type());
 					switch (userType) {
-					case 1:
-						u.setUser_type("系统管理员");
-						break;
-					case 2:
-						u.setUser_type("项目管理员");
-						break;
-					case 3:
-						u.setUser_type("系部管理员");
-						break;
-					case 4:
-						u.setUser_type("评审专家");
-						break;
-					case 5:
-						u.setUser_type("项目申报者");
-						break;
-					default:
-						u.setUser_type("");
-						break;
+						case 1:
+							u.setUser_type("系统管理员");
+							break;
+						case 2:
+							u.setUser_type("项目管理员");
+							break;
+						case 3:
+							u.setUser_type("系部管理员");
+							break;
+						case 4:
+							u.setUser_type("评审专家");
+							break;
+						case 5:
+							u.setUser_type("项目申报者");
+							break;
+						default:
+							u.setUser_type("");
+							break;
 					}
 				}
-				if(u.getSignln_valid() != null) {
+				if (u.getSignln_valid() != null) {
 					Integer signln_valid = Integer.parseInt(u.getSignln_valid());
 					switch (signln_valid) {
-					case 1:
-						u.setSignln_valid("禁用");
-						break;
-					case 2:
-						u.setSignln_valid("正常");
-						break;
-					default:
-						u.setSignln_valid("");
-						break;
+						case 1:
+							u.setSignln_valid("禁用");
+							break;
+						case 2:
+							u.setSignln_valid("正常");
+							break;
+						default:
+							u.setSignln_valid("");
+							break;
 					}
 				}
 			}
 		}
 //		System.out.println("list:" + list);
-		List<ExcelBean> excel=new ArrayList<ExcelBean>();
-	    Map<Integer,List<ExcelBean>> map=new LinkedHashMap<Integer, List<ExcelBean>>();  
-	    XSSFWorkbook xssfWorkbook=null;  
-	    excel.add(new ExcelBean("用户名","user_name",0));
-	    excel.add(new ExcelBean("密码","user_pass",0));
-	    excel.add(new ExcelBean("姓名","real_name",0));
-	    excel.add(new ExcelBean("性别","user_sex",0));
-	    excel.add(new ExcelBean("所属系部","user_department",0));
-	    excel.add(new ExcelBean("职称","user_title",0));
-	    excel.add(new ExcelBean("电子邮箱","user_mailbox",0));
-	    excel.add(new ExcelBean("联系电话","user_telphone",0));
-	    excel.add(new ExcelBean("添加时间","reg_date",0));
-	    excel.add(new ExcelBean("用户类型","user_type",0));
-	    excel.add(new ExcelBean("状态","signln_valid",0));
-	    excel.add(new ExcelBean("备注","user_remark",0));
-	    map.put(0, excel);
-	    //调用ExcelUtil的方法  
-	    xssfWorkbook = ExcelUtil.createExcelFile(User.class, list, map,"用户信息");  
-	    return xssfWorkbook;
+		List<ExcelBean> excel = new ArrayList<ExcelBean>();
+		Map<Integer, List<ExcelBean>> map = new LinkedHashMap<Integer, List<ExcelBean>>();
+		XSSFWorkbook xssfWorkbook = null;
+		excel.add(new ExcelBean("用户名", "user_name", 0));
+		excel.add(new ExcelBean("密码", "user_pass", 0));
+		excel.add(new ExcelBean("姓名", "real_name", 0));
+		excel.add(new ExcelBean("性别", "user_sex", 0));
+		excel.add(new ExcelBean("所属系部", "user_department", 0));
+		excel.add(new ExcelBean("职称", "user_title", 0));
+		excel.add(new ExcelBean("电子邮箱", "user_mailbox", 0));
+		excel.add(new ExcelBean("联系电话", "user_telphone", 0));
+		excel.add(new ExcelBean("添加时间", "reg_date", 0));
+		excel.add(new ExcelBean("用户类型", "user_type", 0));
+		excel.add(new ExcelBean("状态", "signln_valid", 0));
+		excel.add(new ExcelBean("备注", "user_remark", 0));
+		map.put(0, excel);
+		//调用ExcelUtil的方法
+		xssfWorkbook = ExcelUtil.createExcelFile(User.class, list, map, "用户信息");
+		return xssfWorkbook;
 	}
 
 	@Override
 	public XSSFWorkbook exportPublicityExcel(String publicity_status,
 											 Apply apply, User user, String str, int currentPage, int pageSize) throws Exception {
-		
+
 		//publicity_status可能为1(未审批)，也可能是"2,3"(已审批，包括成功立项和立项失败)
 		String[] status = publicity_status.split(",");
-		if(publicity_status == "")
+		if (publicity_status == "")
 			status = null;
 		//定义分页pageBean
 		PageBean pageBean = new PageBean(currentPage, pageSize);
 		//得到该用户类型下的所有数据
 		List<ItemVO> list = excelDao.exportPublicityExcel(status, apply, user, str, pageBean.getStart(), pageBean.getPageSize());
 		//格式化数据
-		if(list != null) {
+		if (list != null) {
 			for (ItemVO itemVO : list) {
 				Integer review2_score = Integer.parseInt(itemVO.getReview2_score());
-				if(review2_score >= 90 && review2_score <= 100) {
+				if (review2_score >= 90 && review2_score <= 100) {
 					itemVO.setReview2_score("A");
-				} else if(review2_score >= 80 && review2_score < 90) {
+				} else if (review2_score >= 80 && review2_score < 90) {
 					itemVO.setReview2_score("B");
-				} else if(review2_score >= 70 && review2_score < 80) {
+				} else if (review2_score >= 70 && review2_score < 80) {
 					itemVO.setReview2_score("C");
-				} else if(review2_score >= 60 && review2_score < 70) {
+				} else if (review2_score >= 60 && review2_score < 70) {
 					itemVO.setReview2_score("D");
-				} else if(review2_score >= 0 && review2_score < 60){
+				} else if (review2_score >= 0 && review2_score < 60) {
 					itemVO.setReview2_score("E");
 				}
-				if(itemVO.getPublicity_status() != null) {
+				if (itemVO.getPublicity_status() != null) {
 					Integer publicityStatus = Integer.parseInt(itemVO.getPublicity_status());
 					switch (publicityStatus) {
-					case 1:
-						itemVO.setPublicity_status("待审批");
-						break;
-					case 2:
-						itemVO.setPublicity_status("已立项");
-						break;
-					case 3:
-						itemVO.setPublicity_status("不允许立项");
-						break;
-					default:
-						itemVO.setPublicity_status("");
-						break;
+						case 1:
+							itemVO.setPublicity_status("待审批");
+							break;
+						case 2:
+							itemVO.setPublicity_status("已立项");
+							break;
+						case 3:
+							itemVO.setPublicity_status("不允许立项");
+							break;
+						default:
+							itemVO.setPublicity_status("");
+							break;
 					}
 				}
-				if(itemVO.getPublicity_grade() != null) {
+				if (itemVO.getPublicity_grade() != null) {
 					Integer publicity_grade = Integer.parseInt(itemVO.getPublicity_grade());
 					switch (publicity_grade) {
-					case 1:
-						itemVO.setPublicity_grade("重点");
-						break;
-					case 2:
-						itemVO.setPublicity_grade("一般");
-						break;
-					default:
-						itemVO.setPublicity_grade("");
-						break;
+						case 1:
+							itemVO.setPublicity_grade("重点");
+							break;
+						case 2:
+							itemVO.setPublicity_grade("一般");
+							break;
+						default:
+							itemVO.setPublicity_grade("");
+							break;
 					}
 				}
 			}
 		}
-		List<ExcelBean> excel=new ArrayList<ExcelBean>();  
-	    Map<Integer,List<ExcelBean>> map=new LinkedHashMap<Integer, List<ExcelBean>>();  
-	    XSSFWorkbook xssfWorkbook=null;  
-	    excel.add(new ExcelBean("项目名称","item_name",0));
-	    excel.add(new ExcelBean("项目类别","item_type",0));
-	    excel.add(new ExcelBean("申报人","item_user",0));
-	    excel.add(new ExcelBean("职称","user_title",0));
-	    excel.add(new ExcelBean("申报年份","apply_year",0));
-	    excel.add(new ExcelBean("起始日期","item_starttime",0));
-	    excel.add(new ExcelBean("截止日期","item_deadline",0));
-	    excel.add(new ExcelBean("推荐单位","review1_user",0));
-	    excel.add(new ExcelBean("评审专家","review2_user",0));
-	    excel.add(new ExcelBean("评审得分","review2_score",0));
-	    excel.add(new ExcelBean("审批状态","publicity_status",0));
-	    excel.add(new ExcelBean("立项等级","publicity_grade",0));
-	    excel.add(new ExcelBean("审批时间","publicity_time",0));
-	    excel.add(new ExcelBean("备注","publicity_remark",0));
-	    map.put(0, excel);
-	    //调用ExcelUtil的方法  
-	    xssfWorkbook = ExcelUtil.createExcelFile(ItemVO.class, list, map,"用户信息");  
-	    return xssfWorkbook;
+		List<ExcelBean> excel = new ArrayList<ExcelBean>();
+		Map<Integer, List<ExcelBean>> map = new LinkedHashMap<Integer, List<ExcelBean>>();
+		XSSFWorkbook xssfWorkbook = null;
+		excel.add(new ExcelBean("项目名称", "item_name", 0));
+		excel.add(new ExcelBean("项目类别", "item_type", 0));
+		excel.add(new ExcelBean("申报人", "item_user", 0));
+		excel.add(new ExcelBean("职称", "user_title", 0));
+		excel.add(new ExcelBean("申报年份", "apply_year", 0));
+		excel.add(new ExcelBean("起始日期", "item_starttime", 0));
+		excel.add(new ExcelBean("截止日期", "item_deadline", 0));
+		excel.add(new ExcelBean("推荐单位", "review1_user", 0));
+		excel.add(new ExcelBean("评审专家", "review2_user", 0));
+		excel.add(new ExcelBean("评审得分", "review2_score", 0));
+		excel.add(new ExcelBean("审批状态", "publicity_status", 0));
+		excel.add(new ExcelBean("立项等级", "publicity_grade", 0));
+		excel.add(new ExcelBean("审批时间", "publicity_time", 0));
+		excel.add(new ExcelBean("备注", "publicity_remark", 0));
+		map.put(0, excel);
+		//调用ExcelUtil的方法
+		xssfWorkbook = ExcelUtil.createExcelFile(ItemVO.class, list, map, "用户信息");
+		return xssfWorkbook;
 	}
+
+
 
 }

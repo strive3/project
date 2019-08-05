@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="../../easyui_1.8.2/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../easyui_1.8.2/themes/icon.css">
+
+    <script type="text/javascript" src="../../easyui_1.8.2/jquery.min.js"></script>
+    <script type="text/javascript" src="../../easyui_1.8.2/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../../easyui_1.8.2/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="../js/title.js"></script>
+</head>
+<body>
+Attribute:<input id="combo"/>
+从<input id="low">到<input id="high">
+<div style="width:382px;height:400px">
+    <table id="tb"></table>
+</div>
+
+
+<script type="text/javascript">
+    $(function () {
+        $("#combo").combobox({
+            valueField: "id",
+            textField: "name",
+            data: [
+                {
+                    "id": "",
+                    "name": "1"
+                }, {
+                    "id": "2",
+                    "name": "2"
+                }, {
+                    "id": "3",
+                    "name": "3"
+                }
+            ]
+        })
+
+        $("#low").numberbox({
+            min: 0,
+            precision: 2
+        })
+        $("#high").numberbox({
+            min: 0,
+            precision: 2
+        })
+
+        $("#tb").datagrid({
+                fit: true,
+                columns: title,
+                url: "../json/data.json",
+                //data:data,
+                singleSelect: true,
+                //设置分页    这个分页的表格必须在一个容器里面
+                pagination: true,
+                //设置奇偶行颜色不同
+                striped: true,
+            }
+        )
+        //  $("#tb").datagrid("loadData",data)
+    })
+</script>
+</body>
+</html>

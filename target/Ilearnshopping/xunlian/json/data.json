@@ -1,0 +1,16 @@
+[
+  {
+    "id": "1",
+    "name": "one",
+    "basketball": "1",
+    "study": "1",
+    "play": "1"
+  },
+  {
+    "id": "2",
+    "name": "one",
+    "basketball": "1",
+    "study": "2",
+    "play": "2"
+  }
+]

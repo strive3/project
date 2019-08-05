@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="../../easyui_1.8.2/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../easyui_1.8.2/themes/icon.css">
+
+    <script type="text/javascript" src="../../easyui_1.8.2/jquery.min.js"></script>
+    <script type="text/javascript" src="../../easyui_1.8.2/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../../easyui_1.8.2/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="../js/title.js"></script>
+</head>
+<body>
+<input id="ip">
+<div style="width: 400px;height: 400px;">
+    <table id="tt"></table>
+</div>
+<script>
+    $(function () {
+        $("#ip").combobox({
+            valueField: "id",
+            textField: "text",
+            data: [{
+                id: "",
+                text: "all"
+            }, {
+                id: "1",
+                text: "1"
+            }, {
+                id: "2",
+                text: "2"
+            }
+            ]
+        })
+
+        $.get("../json/data.json",function (value) {
+            // alert(value);
+            var s = JSON.stringify(value);
+            alert(s);
+            var parseJSON = $.parseJSON(s);
+            // var parse = JSON.parse(value);
+            $("#tt").datagrid({
+                    columns: title,
+                    data: parseJSON
+                }
+            )
+        })
+
+
+    })
+</script>
+</body>
+</html>

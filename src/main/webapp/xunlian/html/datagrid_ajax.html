@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>表格_数据ajax获取</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" href="../../easyui_1.8.2/themes/default/easyui.css">
+		<link rel="stylesheet" type="text/css" href="../../easyui_1.8.2/themes/icon.css">
+	<style>
+		.condition {
+			float: left;
+			padding: 15px 10px
+		}
+		.condition input{
+			width: 100px;
+			height: 18px;
+		}
+	</style>
+	</head>
+	<body>
+		<div style="overflow:hidden;">
+			<div class="condition">
+				<label>Attribute:</label>
+				<input id="attribute" />
+			</div>
+			<div class="condition">
+				<label>list price:</label>
+				<input id="listpriceFrom" />
+			</div>
+			<div class="condition" style="padding-left: 0px;">
+				<label>to</label>
+				<input id="listpriceTo" />
+			</div>
+			<div class="condition">
+				<a id="search_btn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
+			</div>
+		</div>
+		<div id="itemGrid" style="width:600px;height:500px;"></div>
+
+		<script type="text/javascript" src="../../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../../easyui_1.8.2/jquery.easyui.min.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				//初始化类被下拉框
+				$('#attribute').combobox({
+					valueField: 'id',
+					textField: 'text',
+					data: [{
+						id: '',
+						text: '全部'
+					},{
+						id: '1',
+						text: 'Male'
+					},{
+						id: '2',
+						text: 'Female'
+					}]
+				});
+				//初始化价格输入框
+				$('#listpriceFrom').numberbox({
+				    min:0,
+				    precision:2
+				});
+				
+				$('#listpriceTo').numberbox({
+				    min:0,
+				    precision:2
+				});
+				
+				//获取表头数据，并初始化表格表头
+				$.get('../json/itemGridTitle.json',function(title){
+					var gridTitle = JSON.parse(title);
+					$('#itemGrid').datagrid({
+						fit:true,
+						columns: gridTitle
+					});
+				});
+				
+				//查询报表数据
+				$('#search_btn').on('click',function(){
+					getData();
+				});
+				
+				//获取并查询表格数据
+				function getData() {
+					$.get('../json/itemGridData.json',function(data){
+						var gridData = JSON.parse(data);
+						//获取类别的值
+						var attribute = $('#attribute').combobox('getValue');
+						if (attribute) {
+							attribute = attribute == '1' ? 'Male' : 'Female';
+						} 
+						//获取价格区间
+						var listpriceFrom = $('#listpriceFrom').numberbox('getValue');
+						listpriceFrom = listpriceFrom ? listpriceFrom : 0;
+						var listpriceTo = $('#listpriceTo').numberbox('getValue');
+						listpriceTo = listpriceTo ? listpriceTo : Infinity;
+						var rows = gridData.rows;
+						//用于存储过滤后的数据
+						var filterData = [];
+						
+						for (var i = 0,len = rows.length;i < len;i++) {
+							var row = rows[i];
+							var attr = row.attr1;
+							var listprice = row.listprice;
+							listprice = listprice ? listprice - 0 : 0;
+							//如果类别符合要求，且在介个区间内，则将数据存入过滤数据
+							if ( (attr == attribute || attribute == '') 
+								&& listprice >= listpriceFrom && listprice <=listpriceTo) {
+								filterData.push(row);
+							}
+						}
+						
+						$('#itemGrid').datagrid('loadData',filterData);
+					});
+				}
+			});
+		</script>
+	</body>
+</html>

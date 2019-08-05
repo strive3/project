@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>表格</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" href="../pluginlib/jquery-easyui-1.4.2/themes/default/easyui.css">
+		<link rel="stylesheet" type="text/css" href="../pluginlib/jquery-easyui-1.4.2/themes/icon.css">
+	<style>
+		.condition {
+			float: left;
+			padding: 15px 10px
+		}
+		.condition input{
+			width: 100px;
+			height: 18px;
+		}
+	</style>
+	</head>
+	<body>
+		<div style="overflow:hidden;">
+			<div class="condition">
+				<label>Attribute:</label>
+				<input id="attribute" />
+			</div>
+			<div class="condition">
+				<label>list price:</label>
+				<input id="listpriceFrom" />
+			</div>
+			<div class="condition" style="padding-left: 0px;">
+				<label>to</label>
+				<input id="listpriceTo" />
+			</div>
+			<div class="condition">
+				<a id="search_btn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">筛选</a>
+			</div>
+		</div>
+		<div id="itemGrid" style="width:600px;height:500px;"></div>
+		<script type="text/javascript" src="../pluginlib/jquery-easyui-1.4.2/jquery.min.js"></script>
+		<script type="text/javascript" src="../pluginlib/jquery-easyui-1.4.2/jquery.easyui.min.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				var globalGridData = [];
+				//初始化下拉框
+				$('#attribute').combobox({
+					valueField:'id',    
+    				textField:'text',
+    				data: [{
+    					id: '',
+    					text: '全部'
+    				},{
+    					id: '1',
+    					text: 'Male'
+    				},{
+    					id: '2',
+    					text: 'Female'
+    				}]
+				});
+				//绘制价格区间
+				$('#listpriceFrom').numberbox({
+					min: 0,
+					precision: 2
+				});
+				
+				//绘制价格区间
+				$('#listpriceTo').numberbox({
+					min: 0,
+					precision: 2
+				});
+				
+				//绘制表格
+				$.get('../json/itemGridTitle.json',function(value){
+					var gridTitle = JSON.parse(value);
+					//获取并初始化表格的表头
+					$('#itemGrid').datagrid({
+						fit: true,
+						columns: gridTitle
+					});
+					$.get('../json/itemGridData.json',function(value){
+						var gridData = JSON.parse(value);
+						globalGridData = gridData;
+						//加载数据
+						$('#itemGrid').datagrid('loadData',gridData);
+					});
+				});
+				
+				//点击筛选
+				$('#search_btn').on('click',function(){
+					getData();
+				});
+				
+				//筛选数据
+				function getData() {
+					//获取类别值
+					var attr = $('#attribute').combobox('getValue');
+					if (attr) {
+						attr = attr == '1' ? 'Male' : 'Female';
+					}
+					//获取价格区间
+					var priceFrom = $('#listpriceFrom').numberbox('getValue');
+					priceFrom = priceFrom ? priceFrom - 0 : 0;
+					var priceTo = $('#listpriceTo').numberbox('getValue');
+					priceTo = priceTo ? priceTo - 0 : Infinity;
+					var filterData = [];
+					var data = globalGridData.rows;
+					for (var i = 0,len = data.length;i < len;i++) {
+						var row = data[i];
+						var attr1 = row.attr1;
+						var listprice = row.listprice;
+						listprice = listprice ? listprice - 0 : 0;
+						if ((attr == '' || attr == attr1) && listprice >= priceFrom && listprice <= priceTo) {
+							filterData.push(row);
+						}
+					}
+					//加载数据
+					$('#itemGrid').datagrid('loadData',filterData);
+				}
+			});
+		</script>
+	</body>
+</html>

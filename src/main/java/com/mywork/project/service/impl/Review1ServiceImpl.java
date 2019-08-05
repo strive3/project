@@ -2,11 +2,14 @@ package com.mywork.project.service.impl;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.annotation.Resource;
 
 import com.mywork.project.dao.ApplyDao;
 import com.mywork.project.dao.Review1Dao;
+import com.mywork.project.dao.Review2Dao;
+import com.mywork.project.dao.UserDao;
 import com.mywork.project.domain.Apply;
 import com.mywork.project.domain.PageBean;
 import com.mywork.project.domain.Review1;
@@ -21,9 +24,15 @@ public class Review1ServiceImpl implements Review1Service {
 	
 	@Resource(name="review1Dao")
 	private Review1Dao review1Dao;
+
+	@Resource(name="review2Dao")
+	private Review2Dao review2Dao;
 	
 	@Resource(name="applyDao")
 	private ApplyDao applyDao;
+
+	@Resource(name="userDao")
+	private UserDao userDao;
 	
 	@Override
 	public Map<String, Object> listReview1(String review1_status, Apply apply, User user, String str, int currentPage, int pageSize) {
@@ -98,6 +107,17 @@ public class Review1ServiceImpl implements Review1Service {
 		if(i == 0 || j == 0) {
 			throw new RuntimeException("系部审核项目失败，请重新操作！");
 		}
+
+		List<User> listExpert = userDao.listExpert();
+		Random random = new Random();
+		User review2_user = listExpert.get(random.nextInt(listExpert.size() - 1));
+		int a = review2Dao.addReview2(review1.getItem_id(), review2_user.getUser_name());
+		int b = applyDao.changeStatus(review1.getItem_id(), "3");
+		if(a == 0 || b == 0) {
+			throw new RuntimeException("分配专家评审项目失败，请重新操作！");
+		}
+
+
 	}
 
 

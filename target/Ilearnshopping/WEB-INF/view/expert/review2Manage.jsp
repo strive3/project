@@ -47,7 +47,7 @@
 				url : '../../review2/listReview2.do?review2_status=' + '${review2.review2_status }' + '&review2_user=' + '${review2.review2_user }' + '&history_flag=' + '${history_flag }',
 				title : '当前列表',
 				rownumbers : true,
-				height : 800,
+				height : 600,
 				//载入提示信息
 				loadMsg : 'loading...',
 				//水平自动展开，如果设置此属性，则不会有水平滚动条，演示冻结列时，该参数不要设置

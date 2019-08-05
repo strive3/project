@@ -41,7 +41,7 @@
 	</script>
 </head>
 <body class="easyui-layout">
-	<div data-options="region:'north',title:'header',split:true,noheader:true," style="height:100%;background:#2D3E50;">
+	<div data-options="region:'north',title:'header',split:true,noheader:true," style="height:165px;background:#2D3E50;">
 		<div class="logo">后台管理</div>
 		<div class="timeDiv" id="timeDiv"></div>&nbsp;&nbsp;
 		<div class="logout">欢迎您，

@@ -28,11 +28,6 @@ public class Review1Controller {
 		/**
 		 * 传入的apply对象指history_flag字段，而传入的review1_status可能为“1”(未审核状态)，也可能为“2,3”(已审核状态)
 		 */
-//		String[] status = review1_status.split(",");
-//		List<String> list = new ArrayList<String>();
-//		for (String string : status) {
-//			list.add(string);
-//		}
 		request.setAttribute("review1_status", review1_status);
 		User user = (User) request.getSession().getAttribute("user");
 		if(user != null) {
